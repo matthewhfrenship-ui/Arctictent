@@ -451,6 +451,21 @@ function resolveSavedPlayerPosition(){
   player.position.set(SPAWN.x, spawnY + 1.0, SPAWN.z);
 }
 
+// ---------- Respawn ----------
+function respawnPlayerAtSpawn(){
+  if(!player) return;
+  const spawnY = getTerrainHeight(SPAWN.x, SPAWN.z) || 0;
+  player.position.set(SPAWN.x, spawnY + 1.0, SPAWN.z);
+  player.rotation.y = 0;
+  playerState.health = 100;
+  playerState.stunTimer = 0;
+  playerState.attacking = false;
+  playerState.blocking = false;
+  playerState.dashing = false;
+  if(player) player.userData.anim = { type: 'idle', t: 0 };
+  updateHUD();
+}
+
 // ---------- Dash ----------
 function attemptDash(){
   if(playerState.dashing) return;
